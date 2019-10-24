@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.dapperlabs.dapper.oauth">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application>
+        <activity
+            android:name=".MainActivity"
+            android:noHistory="true">
+            <intent-filter>
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="oauth2"
+                    android:scheme="com.dapper.oauth-example" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
