@@ -1,6 +1,37 @@
 # dapper-oauth-android
 DapperOAuth is a lightweight SDK that allows clients to authenticate their users via Dapper's [OAuth2 Identity service](https://www.notion.so/dapperlabs/identity-api-b017d5851e5b4839b33f9dfb02278c2b) and the [NBA Auth Gateway]((https://www.notion.so/dapperlabs/NBA-Auth-Gateway-f0a4d607c9174edb99a2b0574d8bbf9a)).
 
+## Usage
+
+1. Initialize an instance of `DapperAuthClient`. The constructor requires activity `context` the client app's `clientId` and optionally allows you to specify the OAuth environment (`.staging` or `.production`) default is `production`.
+
+2. Implement or create instance of the `DapperAuthListener` interface and this requires you to implement two methods: 
+
+```
+public protocol DapperAuthListener {
+    func onAuthenticationSuccess(okens: TokensResponse)
+    func onAuthenticationFailure(error: String)
+}
+```
+
+This allows the `activity` to handle the success and failure cases.
+
+3. At the appropriate point in your login flow, call the `login` method on `DapperAuthClient` instance created in step 1, pass the instance `DapperAuthListener` ,optionally  specifying the scopes that your app requires from Dapper:
+
+
+```
+fun login(
+        scopes: List<Scope> = listOf(
+            Scope.OPEN_ID,
+            Scope.EMAIL,
+            Scope.PROFILE,
+            Scope.OFFLINE,
+            Scope.READ_WALLET_ADDRESS
+        ),
+        dapperAuthListener: DapperAuthListener)
+
+```
+
 ## Authentication Flow
 
 The purpose of this SDK is to provide clients with a simple way to authenticate users through Dapper's OAuth2 provider, the Identity service. Once the user has successfully authenticated with their Dapper credentials, the SDK will return the user's session token and CSRF token to the client application, allowing it to make authenticated requests on behalf of the user.
