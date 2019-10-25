@@ -1,6 +1,30 @@
 # dapper-oauth-android
 DapperOAuth is a lightweight SDK that allows clients to authenticate their users via Dapper's [OAuth2 Identity service](https://www.notion.so/dapperlabs/identity-api-b017d5851e5b4839b33f9dfb02278c2b) and the [NBA Auth Gateway]((https://www.notion.so/dapperlabs/NBA-Auth-Gateway-f0a4d607c9174edb99a2b0574d8bbf9a)).
 
+## Installtion
+
+Assuming the build system is `Gradle`, follow these steps to get the sdk
+
+1.Add the JitPack repository to your root build.gradle at the end of `repositories` under `allProjects` like below
+
+```
+allprojects {
+    repositories {
+        .... //existing code
+
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+
+2. Add the dependency in module level `build.gradle` file under `dependencies` like below
+```
+dependencies {
+     ... /existing dependencies
+    implementation 'com.github.dapperlabs:dapper-oauth-android:0.1.0'
+}
+```
+
 ## Usage
 
 1. Initialize an instance of `DapperAuthClient`. The constructor requires activity `context` the client app's `clientId` and optionally allows you to specify the OAuth environment (`.staging` or `.production`) default is `production`.
