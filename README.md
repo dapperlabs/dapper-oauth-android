@@ -81,7 +81,7 @@ The following query string parameters are required:
 - `response_type=code`: Indicates that we want to retrieve a one-time token (`ott`) from the OAuth provider, which we will use later to exchange for a `sessionToken` and `authToken`.
 - `redirect_uri`: This is the URL of the Auth Gateway's authentication endpoint, from which the SDK will retrieve a one-time token upon sucessful authentication.
 - `scope`: OAuth scopes allow clients to read or write certain user data on behalf of the user. Dapper supports the following [OAuth scopes](https://www.notion.so/dapperlabs/OAuth-Scopes-26a7ac80291f42a6aa58e42820d12b3e).
-- `state`: String parameter that is used to specify the callback URI to redirect to once authentication completes. This callback URI allows the SDK to retrieve the user's `ott` once they have successfully logged in. The root of the `redirect_uri` must be a registered URL scheme of the client application in order for it to receive the callback, and it must also be registered with the Identity service or the request will fail.
+- `state`: String parameter that is used to specify the callback URI to redirect to once authentication completes. This callback URI allows the SDK to retrieve the user's `ott` once they have successfully logged in. It must also be registered with the Identity service or the request will fail.
 
 2. After the user successfully logs in, the Auth Gateway redirects the client to its callback URL and returns a one-time token in the `ott` query parameter.
 
