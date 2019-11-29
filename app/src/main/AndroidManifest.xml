@@ -6,8 +6,9 @@
 
     <application>
         <activity
-            android:name=".MainActivity"
-            android:noHistory="true">
+            android:name=".RedirectUriReceiverActivity"
+            android:noHistory="true"
+            android:exported="true">
             <intent-filter>
 
                 <action android:name="android.intent.action.VIEW" />
@@ -15,9 +16,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data
-                    android:host="oauth2"
-                    android:scheme="com.dapper.oauth-example" />
+                <data android:scheme="${appAuthRedirectScheme}" />
+
             </intent-filter>
         </activity>
     </application>

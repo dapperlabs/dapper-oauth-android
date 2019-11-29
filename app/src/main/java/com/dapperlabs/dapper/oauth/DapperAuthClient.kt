@@ -10,7 +10,7 @@ const val REDIRECT_URI = "redirect_uri"
 const val STATE = "state"
 const val SCOPE = "scope"
 
-class DapperAuthClient(private val context: Context, private val clientId: String, private val environment: Environment) {
+class DapperAuthClient(private val context: Context, private val clientId: String, private val clientRedirectUri:String, private val environment: Environment) {
 
     companion object {
         internal lateinit var dapperAuthListener: DapperAuthListener
@@ -47,7 +47,7 @@ class DapperAuthClient(private val context: Context, private val clientId: Strin
         return Uri.parse(environment.hydraAuthUrl)
             .buildUpon()
             .appendQueryParameter(CLIENT_ID, clientId)
-            .appendQueryParameter(STATE, "{\"redirectUrl\":\"com.dapper.oauth-example://oauth2/callback\"}")
+            .appendQueryParameter(STATE, "{\"redirectUrl\":\"$clientRedirectUri\"}")
             .appendQueryParameter(RESPONSE_TYPE, "code")
             .appendQueryParameter(SCOPE, scopes.joinToString(separator = " ") { it.scope })
             .appendQueryParameter(REDIRECT_URI, environment.gatewayAuthUrl)
