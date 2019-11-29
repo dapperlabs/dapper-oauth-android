@@ -21,15 +21,46 @@ allprojects {
 ```
 dependencies {
      ... /existing dependencies
-    implementation 'com.github.dapperlabs:dapper-oauth-android:0.1.0'
+    implementation 'com.github.dapperlabs:dapper-oauth-android:0.1.1'
 }
 ```
 
 ## Usage
 
-1. Initialize an instance of `DapperAuthClient`. The constructor requires activity `context` the client app's `clientId` and optionally allows you to specify the OAuth environment (`.staging` or `.production`) default is `production`.
+1. Initialize an instance of `DapperAuthClient`. The constructor requires activity `context` the client app's `clientId`, custom clientRedirectURI, and optionally allows you to specify the OAuth environment (`.staging` or `.production`) default is `production` like below
 
-2. Implement or create instance of the `DapperAuthListener` interface and this requires you to implement two methods: 
+```
+DapperAuthClient(this,"a3d4602c-43e4-4d3e-959d-131300853d06", "com.dapper.oauth-example://oauth2/callback", Environment.STAGING)
+```
+
+2. Make sure to override the custom clientRedirectURI in app module `build.gradle` file like below
+```
+android {
+    defaultConfig {
+        // Make sure this is consistent with the redirect URI passed in `DapperAuthClient`,
+        // or specify additional redirect URIs in AndroidManifest.xml
+        manifestPlaceholders = [
+                'appAuthRedirectScheme': 'com.dapper.oauth-example'
+        ]
+    }
+```
+Alternatively, the redirect URI can be directly configured by adding an intent-filter for Dapp-oauth-android's RedirectUriReceiverActivity to your AndroidManifest.xml:
+
+```
+<activity
+            android:name="RedirectUriReceiverActivity"
+            tools:node="replace">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="com.dapper.oauth-example" />
+            </intent-filter>
+        </activity>
+```
+
+3. Implement or create instance of the `DapperAuthListener` interface and this requires you to implement two methods: 
 
 ```
 public protocol DapperAuthListener {
