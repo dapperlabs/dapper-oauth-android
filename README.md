@@ -21,7 +21,7 @@ allprojects {
 ```
 dependencies {
      ... /existing dependencies
-    implementation 'com.github.dapperlabs:dapper-oauth-android:0.1.1'
+    implementation 'com.github.dapperlabs:dapper-oauth-android:0.1.2'
 }
 ```
 
